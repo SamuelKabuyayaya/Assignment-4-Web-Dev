@@ -7,15 +7,15 @@ const router = express.Router();
 
 router.route("/")
 .get(authCtrl.requireSignin, projectCtrl.list)
-.post(authCtrl.requireSignin, projectCtrl.create)
-.delete(authCtrl.requireSignin, projectCtrl.removeAll);
+.post(authCtrl.requireSignin, authCtrl.isAdmin, projectCtrl.create)
+.delete(authCtrl.requireSignin, authCtrl.isAdmin, projectCtrl.removeAll);
 
 router.param("projectId", projectCtrl.projectById);
 
 router.route("/:projectId")
 .get(authCtrl.requireSignin, projectCtrl.read)
-.put(authCtrl.requireSignin, projectCtrl.update)
-.delete(authCtrl.requireSignin, projectCtrl.remove);
+.put(authCtrl.requireSignin, authCtrl.isAdmin, projectCtrl.update)
+.delete(authCtrl.requireSignin, authCtrl.isAdmin, projectCtrl.remove);
 
 
 export default router;

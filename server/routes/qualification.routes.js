@@ -7,15 +7,15 @@ const router = express.Router();
 
 router.route("/")
 .get(authCtrl.requireSignin, qualificationCtrl.list)
-.post(authCtrl.requireSignin, qualificationCtrl.create)
-.delete(authCtrl.requireSignin, qualificationCtrl.removeAll);
+.post(authCtrl.requireSignin, authCtrl.isAdmin, qualificationCtrl.create)
+.delete(authCtrl.requireSignin, authCtrl.isAdmin, qualificationCtrl.removeAll);
 
 router.param("qualificationId", qualificationCtrl.qualificationById);
 
 router.route("/:qualificationId")
 .get(authCtrl.requireSignin, qualificationCtrl.read)
-.put(authCtrl.requireSignin, qualificationCtrl.update)
-.delete(authCtrl.requireSignin, qualificationCtrl.remove);
+.put(authCtrl.requireSignin, authCtrl.isAdmin, qualificationCtrl.update)
+.delete(authCtrl.requireSignin, authCtrl.isAdmin, qualificationCtrl.remove);
 
 
 export default router;
