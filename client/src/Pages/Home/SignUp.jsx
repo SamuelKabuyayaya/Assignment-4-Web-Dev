@@ -12,7 +12,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${API}/api/auth/signin`, {
+    const res = await fetch(`${API}/api/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
@@ -24,45 +24,44 @@ export default function SignUp() {
   };
 
   return (
-    <section className="contact--section">
+    <div className="auth-page">
+     <div className="auth-card">
       <h2>Sign Up</h2>
 
-      <form className="contact--form--container" onSubmit={handleSubmit}>
-        <label className="contact--label">
+      <form className="auth--form" onSubmit={handleSubmit}>
+        <label className="auth--label">
           Name
           <input 
             type="text" 
-            className="contact--input"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required 
           />
         </label>
 
-        <label className="contact--label">
+        <label>
           Email
           <input 
             type="email" 
-            className="contact--input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required 
           />
         </label>
 
-        <label className="contact--label">
+        <label>
           Password
           <input 
             type="password"
-            className="contact--input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required 
           />
         </label>
 
-        <button className="btn btn-primary contact--form--btn">Sign Up</button>
+        <button className="btn btn-primary">Sign Up</button>
       </form>
-    </section>
+      </div>
+    </div>  
   );
 }
