@@ -1,5 +1,7 @@
 //displays the navigation bar with links to different sections of the site
 import {Link} from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
+
 
 function Navbar(){
      return (
@@ -106,6 +108,23 @@ function Navbar(){
             >
                 Contact Me
         </Link>
+
+        
+        <li>
+  <RouterLink to="/signin" className="navbar--content">
+    Login
+  </RouterLink>
+</li>
+
+<li>
+  <RouterLink to="/signup" className="navbar--content">
+    Register
+  </RouterLink>
+</li>
+
+
+
+
         </nav>
      );
 }
