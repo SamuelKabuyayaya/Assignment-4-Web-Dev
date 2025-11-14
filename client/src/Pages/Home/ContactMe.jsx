@@ -28,14 +28,7 @@ export default function ContactMe(){
     setSuccess("");
     setError("");
 
-    const token = localStorage.getItem("jwtToken");
-
-    if (!token) {
-      setError("You must be signed in to submit the form.");
-      return;
-    }
-
-    const response = await createContact(token, formData);
+    const response = await createContact(formData);
 
     if (response.error) {
       setError(response.error);
@@ -64,7 +57,7 @@ export default function ContactMe(){
             </div>
 
             {/*Form container*/}
-            <form className="contact--form--container">
+            <form className="contact--form--container"onSubmit={handleSubmit}>
 
                 {/*Name, email and phone number*/}
                 <div className="contact--container">

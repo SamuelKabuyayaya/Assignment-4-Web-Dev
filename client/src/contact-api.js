@@ -1,13 +1,12 @@
-const API_URL = "http://localhost:3000"; 
+const API_URL = "http://localhost:8000"; 
 
-export const createContact = async (token, contactData) => {
+export const createContact = async (contactData) => {
   try {
-    let response = await fetch(`${API_URL}/api/contact`, {
+    let response = await fetch(`${API_URL}/api/contacts`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(contactData),
     });

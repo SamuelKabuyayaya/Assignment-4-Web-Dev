@@ -52,6 +52,7 @@ export default function ProjectForm({ initialData = null, onSubmit, }) {
           <input
             type="text"
             className="contact--input"
+            name="src"
             value={form.src}
             onChange={handleChange}
             placeholder="/img/Project1.png"
@@ -64,7 +65,7 @@ export default function ProjectForm({ initialData = null, onSubmit, }) {
           <input
             type="url"
             className="contact--input"
-             name="githubLink"
+            name="githubLink"
             value={form.githubLink}
             onChange={handleChange}
             required

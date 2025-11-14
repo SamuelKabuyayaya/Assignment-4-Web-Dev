@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.route("/")
 .get(authCtrl.requireSignin, contactCtrl.list)
-.post(authCtrl.requireSignin, contactCtrl.create)
+.post(contactCtrl.create)
 .delete(authCtrl.requireSignin, authCtrl.isAdmin, contactCtrl.removeAll);
 
 router.param("contactId", contactCtrl.contactById);

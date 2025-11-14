@@ -31,11 +31,23 @@ const signin = async (req, res) => {
    };
 
    const requireSignin = (req, res, next) => {
-    try {
-        const token = req.headers.authorization?.split(" ")[1];
-        if (!token) 
-            return res.status(401).json({error: "Access denied"});
+     const authHeader = req.headers.authorization;
 
+     if (!authHeader) {
+    return res.status(401).json({ error: "No token provided" });
+     }
+
+     const parts = authHeader.split(" ");
+  if (parts.length !== 2 || parts[0] !== "Bearer") {
+    return res.status(401).json({ error: "Invalid authorization format" });
+  } 
+
+  const token = parts[1];
+  if (!token) {
+    return res.status(401).json({ error: "Token missing" });
+  }
+    
+  try{
         const decoded = jwt.verify(token, config.jwtSecret);
         req.auth = decoded;
         next();
