@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API = process.env.REACT_APP_API_URL
+ || "http://localhost:8000";
 
 export default function AdminEditProject() {
   const { id } = useParams();
