@@ -30,7 +30,7 @@ export default function HeroSection() {
 
         {/*Image on the righ side*/}
         <div className="hero--section--image">
-            <img src="/img/Homepagecode.png" alt="Hero Section" />.
+            <img src="/img/Homepagecode.png" alt="Hero Section" />
         </div>
     </section>
     )

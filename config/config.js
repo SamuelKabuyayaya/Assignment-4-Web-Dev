@@ -1,6 +1,6 @@
  const config = {
  env: process.env.NODE_ENV || 'development', 
- port: process.env.PORT || 5173,
+ port: process.env.PORT || 8000,
  jwtSecret: process.env.JWT_SECRET || "I5aeDqp20NEFy21P", 
  mongoUri: process.env.MONGODB_URI ||"mongodb+srv://kakapuka677_db_user:I5aeDqp20NEFy21P@cluster0.gvbjh9v.mongodb.net/Portfolio"||
  process.env.MONGO_HOST ||

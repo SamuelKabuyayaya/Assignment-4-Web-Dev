@@ -36,11 +36,9 @@ const projectById = async (req, res, next, id) => {
     try {
       let project = req.profile;
       project.title = req.body.title || project.title;
-      project.firstname = req.body.firstname || project.firstname;
-      project.lastname = req.body.lastname || project.lastname;
-      project.email = req.body.email || project.email;
-      project.completion = req.body.completion || project.completion;
       project.description = req.body.description || project.description;
+      project.src = req.body.src || project.src;
+      project.githubLink = req.body.githubLink || project.githubLink;
 
       await project.save();
       res.json({message: "Project updated!"});

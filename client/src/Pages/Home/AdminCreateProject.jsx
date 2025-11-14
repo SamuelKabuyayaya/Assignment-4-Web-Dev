@@ -1,12 +1,15 @@
 import React from "react";
 import ProjectForm from "./ProjectForm";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+
 export default function AdminCreateProject() {
 
   const handleCreate = async (projectData) => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5173/api/projects", {
+    const res = await fetch(`${API}/api/projects`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",

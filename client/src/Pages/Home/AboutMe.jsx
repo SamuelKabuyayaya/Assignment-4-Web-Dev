@@ -5,7 +5,7 @@ export default function AboutMe() {
         <section id="AboutMe" className="about--section">
             {/*image on the left side*/}
             <div className="about--section--img">
-                <img src="./img/Homepageface.png" alt="About Me" />
+                <img src="/img/Homepageface.png" alt="About Me" />
             </div>
             {/*Text on the right side*/}
             <div className="hero-section--content--box about--section--box">

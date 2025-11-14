@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function AdminProjects() {
   const [projects, setProjects] = useState([]);
 
   const fetchProjects = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5173/api/projects", {
+    const res = await fetch(`${API}/api/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -17,7 +19,7 @@ export default function AdminProjects() {
   const deleteProject = async (id) => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:5173/api/projects/${id}`, {
+    const res = await fetch(`${API}/api/projects/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });

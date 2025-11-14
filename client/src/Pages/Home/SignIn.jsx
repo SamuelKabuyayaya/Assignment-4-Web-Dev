@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -7,7 +10,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5173/api/auth/signin", {
+    const res = await fetch(`${API}/api/auth/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

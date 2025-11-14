@@ -385,7 +385,7 @@ h3 {
     display: grid;
     padding: 133.3px 85.3px;
     align-items: center;
-    gap: 114.px;
+    gap: 114px;
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -442,7 +442,7 @@ h3 {
 }
 
 .projects--section--img{
-    border: 2px solid cvar(--primary);
+    border: 2px solid var(--primary);
     border-radius: 12px;
     padding: 8px;
     background: #f9f9f9;
@@ -466,7 +466,7 @@ h3 {
     gap: 32px;
     flex: 1 0 300px;
     background: #fff;
-    box-shadow: 0 0 32 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.15);
     cursor: pointer;
     border-top-left-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -577,7 +577,7 @@ h3 {
 
 .services--section--heading{
     color: var(--heading-color);
-    font-size: 40;
+    font-size: 40px;
     font-weight: 700;
     line-height: 2px;
     text-align: left;
