@@ -133,6 +133,7 @@ export default function ContactMe(){
                         onChange={handleChange}
                         rows="8"
                         placeholder="Type your message here..."
+                        className="contact--input text-md"
                         required
                         />
                     </label>
