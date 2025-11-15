@@ -9,6 +9,10 @@ import SignUp from "./Pages/Home/SignUp";
 import AdminProjects from "./Pages/Home/AdminProjects";
 import AdminCreateProject from "./Pages/Home/AdminCreateProject";
 
+import Qualifications from "./Pages/Home/Qualifications";
+import AdminAddQualification from "./Pages/Home/AdminAddQualification";
+import AdminQualifications from "./Pages/Home/AdminQualifications";
+import AdminEditQualification from "./Pages/Home/AdminEditQualification";
 
 
 function App() {
@@ -17,14 +21,17 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+
+          <Route path="/education" element={<Qualifications />} />
 
           <Route path="/admin/projects" element={<AdminProjects />} />
           <Route path="/admin/projects/create" element={<AdminCreateProject />} />
 
-
+        <Route path="/admin/qualifications" element={<AdminQualifications />} />
+        <Route path="/admin/qualifications/add" element={<AdminAddQualification />} />
+        <Route path="/admin/qualifications/edit/:id" element={<AdminEditQualification />} />
 
           <Route path="*" element={<div>404 Not Found</div>}></Route>
         </Routes>
