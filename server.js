@@ -12,19 +12,18 @@ mongoose
   })
   .then(() => {
     console.log("Connected to the database!");
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
   });
+  ;
   
 mongoose.connection.on("error", () => {
   throw new Error(`unable to connect to database: ${config.mongoUri}`);
 });
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to User application." });
-});
 
 
-app.listen(config.port, (err) => {
-  if (err) {
-    console.log(err);
-  }
+
+app.listen(config.port, () => {
   console.info("Server started on port %s.", config.port);
 });
