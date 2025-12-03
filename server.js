@@ -16,14 +16,13 @@ mongoose
   .catch((err) => {
     console.error("Database connection error:", err);
   });
-  ;
+
   
-mongoose.connection.on("error", () => {
-  throw new Error(`unable to connect to database: ${config.mongoUri}`);
+mongoose.connection.on("error", (err) => {
+  console.error(`Unable to connect to database: ${config.mongoUri}`, err);
 });
 
-
-
-app.listen(config.port, () => {
-  console.info("Server started on port %s.", config.port);
+const PORT = process.env.PORT || config.port; 
+app.listen(PORT, () => {
+  console.info(`Server started on port ${PORT}.`);
 });

@@ -22,8 +22,17 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 app.use(cors({
-  origin: "https://assignment-4-web-dev-portfolio-site.onrender.com",
+  origin: "https://portfolio-79zf.onrender.com", // your frontend URL
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], 
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
+app.options("*", cors({
+  origin: "https://portfolio-79zf.onrender.com",
+  credentials: true
 }));
 
 app.use(morgan("dev"));
