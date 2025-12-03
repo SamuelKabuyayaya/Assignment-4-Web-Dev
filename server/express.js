@@ -22,7 +22,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: "https://assignment-4-web-dev-portfolio-site.onrender.com",
+  credentials: true,
+}));
+
+app.options("*", cors());
+
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
