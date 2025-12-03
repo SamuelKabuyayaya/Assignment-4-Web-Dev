@@ -22,17 +22,12 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 app.use(cors({
-  origin: "https://portfolio-79zf.onrender.com", // your frontend URL
+  origin: "https://portfolio-79zf.onrender.com",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"], 
+  allowedHeaders: ["Content-Type", "Authorization"],
   preflightContinue: false,
   optionsSuccessStatus: 204
-}));
-
-app.options("*", cors({
-  origin: "https://portfolio-79zf.onrender.com",
-  credentials: true
 }));
 
 app.use(morgan("dev"));
