@@ -1,9 +1,31 @@
 //displays the navigation bar with links to different sections of the site
 import {Link} from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";  
+import { useEffect, useState } from "react";
 
 
 function Navbar(){
+
+const location = useLocation();
+const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setCurrentUser(null);
+    window.location.href = "/"; 
+  };
+
+  const disableScrollLinks =
+    location.pathname === "/signin" || location.pathname === "/signup";
+
      return (
         <nav className = "navbar">
         
@@ -11,6 +33,12 @@ function Navbar(){
             {/*Logo in task Bar */}
             <img src="/img/Logo.jpg" alt="Logo" />
         </div>
+
+        {currentUser && (
+        <div className="navbar--user">
+          Logged in as <strong>{currentUser.name}</strong>
+        </div>
+      )}
        
         {/*Navbar Links*/}
         <div className="navbar--items">
@@ -19,6 +47,9 @@ function Navbar(){
 
 
             <li>
+                {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">Home</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -30,8 +61,13 @@ function Navbar(){
                 >
                 Home
                 </Link>
+                )}
             </li>
+
             <li>
+                 {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">About Me</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -43,8 +79,12 @@ function Navbar(){
                 >
                 About Me
                 </Link>
+                )}
             </li>
             <li>
+              {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">My Skills</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -56,8 +96,13 @@ function Navbar(){
                 >
                 My Skills
                 </Link>
+                )}
             </li>
+
             <li>
+                 {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">Projects</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -69,8 +114,12 @@ function Navbar(){
                 >
                 Projects
                 </Link>
+                )}
             </li>
             <li>
+                {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">Education</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -82,8 +131,12 @@ function Navbar(){
                 >
                 Education
                 </Link>
+                )}
             </li>
             <li>
+                {disableScrollLinks ? (
+              <RouterLink to="/" className="navbar--content">Services</RouterLink>
+            ) : (
                 <Link 
                 activeClass="navbar--active--content"
                 spy={true}
@@ -95,10 +148,14 @@ function Navbar(){
                 >
                 Services
                 </Link>
+                )}
             </li>
-        
-        {/*Contact button on the right side of the navigation bar*/}
+
+            {/*Contact button on the right side of the navigation bar*/}
         <li>
+               {disableScrollLinks ? (
+              <RouterLink to="/" className="btn btn-outline-primary">Contact Me</RouterLink>
+            ) : (
         <Link
                 activeClass="navbar--active--content"
                 spy={true}
@@ -110,20 +167,30 @@ function Navbar(){
             >
                 Contact Me
         </Link>
+        )}
         </li>
 
-        
+        {currentUser ? (
+            <li>
+              <button onClick={handleLogout} className="btn btn-outline-primary">
+                Logout
+              </button>
+            </li>
+          ) : (
+            <>   
         <li>
-          <RouterLink to="/signin" className="navbar--content">
+          <RouterLink to="/signin" className="btn btn-outline-primary">
            Login
        </RouterLink>
        </li>
 
        <li>
-         <RouterLink to="/signup" className="navbar--content">
+         <RouterLink to="/signup" className="btn btn-outline-primary">
           Register
        </RouterLink>
        </li>
+       </>
+    )}
 
        </ul>
        </div>

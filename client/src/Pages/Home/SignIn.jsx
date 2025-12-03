@@ -20,7 +20,9 @@ export default function SignIn() {
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       alert("Signed in!");
+      window.location.href = "/"; 
     } else {
       alert(data.error || "Login failed");
     }

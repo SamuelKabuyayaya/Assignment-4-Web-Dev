@@ -213,6 +213,13 @@ h3 {
     cursor: pointer;
 }
 
+.navbar--user {
+    margin-left: 20px;
+    font-size: 16px;
+    color: var(--darkblue);
+    white-space: nowrap;
+}
+
 .navbar--active--content{
     color: var(--primary);
 }
