@@ -6,16 +6,10 @@ mongoose.Promise = global.Promise;
 
 
 mongoose
-  .connect(config.mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Connected to the database!");
-  })
-  .catch((err) => {
-    console.error("Database connection error:", err);
-  });
+  .connect(config.mongoUri) 
+  .then(() => console.log("Connected to MongoDB!"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 
   
 mongoose.connection.on("error", (err) => {
