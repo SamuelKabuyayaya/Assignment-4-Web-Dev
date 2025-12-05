@@ -32,7 +32,7 @@ export default function SignIn() {
     <div className="auth-page">
      <div className="auth-card">
 
-      <h2>Sign In</h2>
+      <h2>Login</h2>
 
       <form className="auth--form" onSubmit={handleSubmit}>
         <label>
@@ -55,7 +55,7 @@ export default function SignIn() {
           />
         </label>
 
-        <button className="btn btn-primary">Sign In</button>
+        <button className="btn btn-primary">Login</button>
       </form>
       </div>
     </div>  

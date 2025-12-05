@@ -26,7 +26,7 @@ export default function SignUp() {
   return (
     <div className="auth-page">
      <div className="auth-card">
-      <h2>Sign Up</h2>
+      <h2>Register</h2>
 
       <form className="auth--form" onSubmit={handleSubmit}>
         <label className="auth--label">
@@ -59,7 +59,7 @@ export default function SignUp() {
           />
         </label>
 
-        <button className="btn btn-primary">Sign Up</button>
+        <button className="btn btn-primary">Register</button>
       </form>
       </div>
     </div>  
