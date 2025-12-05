@@ -8,6 +8,7 @@ import SignIn from "./Pages/Home/SignIn";
 import SignUp from "./Pages/Home/SignUp";
 import AdminProjects from "./Pages/Home/AdminProjects";
 import AdminCreateProject from "./Pages/Home/AdminCreateProject";
+import AdminEditProject from "./Pages/Home/AdminEditProject"; // <-- ADD THIS
 
 import Qualifications from "./Pages/Home/Qualifications";
 import AdminAddQualification from "./Pages/Home/AdminAddQualification";
@@ -17,20 +18,21 @@ import AdminEditQualification from "./Pages/Home/AdminEditQualification";
 import AdminContacts from "./Pages/Home/AdminContacts";
 import AdminEditContact from "./Pages/Home/AdminEditContact";
 
-
 function App() {
   return(
     <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
 
-          <Route path="/education" element={<Qualifications />} />
+        <Route path="/education" element={<Qualifications />} />
 
-          <Route path="/admin/projects" element={<AdminProjects />} />
-          <Route path="/admin/projects/create" element={<AdminCreateProject />} />
+        <Route path="/admin/projects" element={<AdminProjects />} />
+        <Route path="/admin/projects/create" element={<AdminCreateProject />} />
+
+        <Route path="/admin/projects/:projectId/edit" element={<AdminEditProject />} />
 
         <Route path="/admin/qualifications" element={<AdminQualifications />} />
         <Route path="/admin/qualifications/add" element={<AdminAddQualification />} />
@@ -39,9 +41,9 @@ function App() {
         <Route path="/admin/contacts" element={<AdminContacts />} />
         <Route path="/admin/contacts/:contactId" element={<AdminEditContact />} />
 
-          <Route path="*" element={<div>404 Not Found</div>}></Route>
-        </Routes>
-      </div>
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
+    </div>
   );
 }
 

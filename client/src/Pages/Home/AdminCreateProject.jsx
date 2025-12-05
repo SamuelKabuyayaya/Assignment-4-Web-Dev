@@ -1,31 +1,36 @@
+// src/components/AdminCreateProject.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
 
 const API = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-
 export default function AdminCreateProject() {
+  const navigate = useNavigate();
 
   const handleCreate = async (projectData) => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(`${API}/api/projects`, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(projectData)
+      body: JSON.stringify(projectData),
     });
 
     const data = await res.json();
 
-    if (res.ok) {
-      alert("Project created!");
-    } else {
-      alert(data.error);
-    }
+    if (!res.ok) return alert(data.error || "Failed to create project");
+
+    navigate("/admin/projects");
   };
 
-  return <ProjectForm onSubmit={handleCreate} />;
+  return (
+    <section className="admin-form-section">
+      <h2>Add Project</h2>
+      <ProjectForm onSubmit={handleCreate} />
+    </section>
+  );
 }

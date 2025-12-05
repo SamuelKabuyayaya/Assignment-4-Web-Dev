@@ -23,7 +23,10 @@ export default function AdminEditContact() {
     e.preventDefault();
     const res = await fetch(`${API}/api/contacts/${contactId}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token 
+      },
       body: JSON.stringify(contact),
     });
     const data = await res.json();
@@ -38,29 +41,68 @@ export default function AdminEditContact() {
   if (!contact) return <p>Loading...</p>;
 
   return (
-    <div className="admin-page">
+    <div className="admin-form-section">
       <h2>Edit Contact</h2>
       <p style={{ color: "green" }}>{msg}</p>
-      <form onSubmit={update} className="auth--form">
+
+      <form onSubmit={update}>
         <label>
           First Name
-          <input value={contact.firstname} onChange={(e) => setContact({ ...contact, firstname: e.target.value })} />
+          <input
+            value={contact.firstname}
+            onChange={(e) => setContact({ ...contact, firstname: e.target.value })}
+          />
         </label>
+
         <label>
           Last Name
-          <input value={contact.lastname} onChange={(e) => setContact({ ...contact, lastname: e.target.value })} />
+          <input
+            value={contact.lastname}
+            onChange={(e) => setContact({ ...contact, lastname: e.target.value })}
+          />
         </label>
+
         <label>
           Email
-          <input value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} />
+          <input
+            value={contact.email}
+            onChange={(e) => setContact({ ...contact, email: e.target.value })}
+          />
         </label>
+        
+        <label>
+          Phone
+          <input
+            value={contact.phone || ""}
+            onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+          />
+        </label>
+
+        <label>
+          Topic
+          <input
+            value={contact.topic || ""}
+            onChange={(e) => setContact({ ...contact, topic: e.target.value })}
+          />
+        </label>
+
         <label>
           Message
-          <textarea rows="6" value={contact.message} onChange={(e) => setContact({ ...contact, message: e.target.value })} />
+          <textarea
+            rows="6"
+            value={contact.message}
+            onChange={(e) => setContact({ ...contact, message: e.target.value })}
+          />
         </label>
+
         <button className="btn btn-primary">Save</button>
       </form>
-      <button className="btn btn-secondary" style={{ marginTop: "20px" }} onClick={() => navigate("/admin/contacts")}>
+
+      <button
+        className="btn btn-secondary"
+        style={{ marginTop: "20px" }}
+        onClick={() => navigate("/admin/contacts")}
+      >
         Back
       </button>
     </div>

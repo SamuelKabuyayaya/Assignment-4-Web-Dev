@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -6,6 +7,7 @@ export default function AdminContacts() {
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const fetchContacts = useCallback(async () => {
     const res = await fetch(`${API}/api/contacts`, {
@@ -13,7 +15,7 @@ export default function AdminContacts() {
     });
     const data = await res.json();
     if (res.ok) setContacts(data);
-    else setError(data.error);
+    else setError(data.error || "Unable to fetch contacts");
   }, [token]);
 
   const deleteContact = async (id) => {
@@ -24,7 +26,7 @@ export default function AdminContacts() {
     });
     const data = await res.json();
     if (res.ok) fetchContacts();
-    else alert(data.error);
+    else alert(data.error || "Delete failed");
   };
 
   const deleteAll = async () => {
@@ -35,7 +37,7 @@ export default function AdminContacts() {
     });
     const data = await res.json();
     if (res.ok) fetchContacts();
-    else alert(data.error);
+    else alert(data.error || "Delete failed");
   };
 
   useEffect(() => {
@@ -43,11 +45,12 @@ export default function AdminContacts() {
   }, [fetchContacts]);
 
   return (
-    <div className="admin-page">
+    <div className="admin-contacts-page">
       <h2>Admin: All Contacts</h2>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button className="btn btn-danger" onClick={deleteAll} style={{ marginBottom: "20px" }}>
+      <button className="delete-all-btn" onClick={deleteAll}>
         Delete ALL Contacts
       </button>
 
@@ -56,6 +59,7 @@ export default function AdminContacts() {
           <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Phone</th>      {/* <-- ADDED */}
             <th>Topic</th>
             <th>Message</th>
             <th>Actions</th>
@@ -67,11 +71,22 @@ export default function AdminContacts() {
             <tr key={c._id}>
               <td>{c.firstname} {c.lastname}</td>
               <td>{c.email}</td>
+              <td>{c.phone || "—"}</td>   {/* <-- ADDED */}
               <td>{c.topic}</td>
               <td>{c.message}</td>
               <td>
-                <a href={`/admin/contacts/${c._id}`} className="btn btn-secondary">View / Edit</a>
-                <button className="btn btn-danger" onClick={() => deleteContact(c._id)} style={{ marginLeft: "10px" }}>
+                <button
+                  className="btn-secondary"
+                  onClick={() => navigate(`/admin/contacts/${c._id}`)}
+                >
+                  View / Edit
+                </button>
+
+                <button
+                  className="btn-danger"
+                  onClick={() => deleteContact(c._id)}
+                  style={{ marginLeft: "10px" }}
+                >
                   Delete
                 </button>
               </td>
