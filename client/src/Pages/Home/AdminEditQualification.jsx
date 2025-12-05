@@ -16,42 +16,109 @@ export default function AdminEditQualification() {
     description: ""
   });
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const loadData = async () => {
-      const data = await listQualifications(token);
-      const qual = data.find(q => q._id === id);
-      if (qual) {
-        setForm({
-          title: qual.title,
-          firstname: qual.firstname,
-          lastname: qual.lastname,
-          email: qual.email,
-          completion: qual.completion.slice(0,10),
-          description: qual.description
-        });
+      try {
+        const data = await listQualifications(token);
+        const qual = data.find(q => q._id === id);
+        if (qual) {
+          setForm({
+            title: qual.title || "",
+            firstname: qual.firstname || "",
+            lastname: qual.lastname || "",
+            email: qual.email || "",
+            completion: (qual.completion || "").slice(0, 10),
+            description: qual.description || ""
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        // optionally show an error UI
+      } finally {
+        setLoading(false);
       }
     };
     loadData();
   }, [id, token]);
 
-  const handleChange = e => setForm({...form, [e.target.name]: e.target.value });
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await updateQualification(token, id, form);
-    navigate("/admin/qualifications");
+    try {
+      await updateQualification(token, id, form);
+      navigate("/admin/qualifications");
+    } catch (err) {
+      console.error(err);
+      alert("Update failed.");
+    }
   };
+
+  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
 
   return (
     <section className="admin-form-section">
-      <h2>Edit Qualification</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="Title" required/>
-        <input type="text" name="firstname" value={form.firstname} onChange={handleChange} placeholder="First Name" required/>
-        <input type="text" name="lastname" value={form.lastname} onChange={handleChange} placeholder="Last Name" required/>
-        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Email" required/>
-        <input type="date" name="completion" value={form.completion} onChange={handleChange} required/>
-        <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" required/>
+      <form className="admin-project-form" onSubmit={handleSubmit}>
+        <h2>Edit Qualification</h2>
+
+        <label>Title</label>
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          required
+        />
+
+        <label>First Name</label>
+        <input
+          type="text"
+          name="firstname"
+          value={form.firstname}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Last Name</label>
+        <input
+          type="text"
+          name="lastname"
+          value={form.lastname}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Completion Date</label>
+        <input
+          type="date"
+          name="completion"
+          value={form.completion}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Description</label>
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          required
+        />
+
         <button type="submit" className="btn btn-primary">Save</button>
       </form>
     </section>

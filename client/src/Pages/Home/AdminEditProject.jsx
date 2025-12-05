@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ProjectForm from "./ProjectForm";
 
 const API = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -8,64 +7,109 @@ export default function AdminEditProject() {
   const { projectId } = useParams();
   const navigate = useNavigate();
 
-  const [initialData, setInitialData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
+
+  const [form, setForm] = useState({
+    title: "",
+    src: "",
+    githubLink: "",
+    description: ""
+  });
 
   useEffect(() => {
-    async function load() {
+    const loadProject = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const res = await fetch(`${API}/api/projects/${projectId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }
         });
 
         const data = await res.json();
+
         if (!res.ok) throw new Error("Project not found");
 
-        setInitialData({
+        setForm({
           title: data.title || "",
-          description: data.description || "",
+          src: data.src || "",
+          githubLink: data.githubLink || "",
+          description: data.description || ""
         });
       } catch (err) {
         console.error(err);
       }
-      setLoading(false);
-    }
+    };
 
-    load();
-  }, [projectId]);
+    loadProject();
+  }, [projectId, token]);
 
-  const handleUpdate = async (projectData) => {
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const token = localStorage.getItem("token");
-
       const res = await fetch(`${API}/api/projects/${projectId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(projectData),
+        body: JSON.stringify(form)
       });
 
       const data = await res.json();
-      if (!res.ok) return alert(data.error || "Failed to update project");
+
+      if (!res.ok) return alert(data.error || "Update failed");
 
       navigate("/admin/projects");
     } catch (err) {
-      alert("Update failed.");
+      alert("Failed to update project.");
     }
   };
 
-  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
-  if (!initialData) return <p style={{ textAlign: "center" }}>Project not found.</p>;
-
   return (
     <section className="admin-form-section">
-      <div className="admin-project-form">
-        <ProjectForm onSubmit={handleUpdate} initialData={initialData} />
-      </div>
+      <form className="admin-project-form" onSubmit={handleSubmit}>
+        <h2>Edit Project Info</h2>
+
+        <label>Project Title</label>
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Image Path</label>
+        <input
+         type="text"
+         name="src"          
+         value={form.src}     
+         onChange={handleChange}
+         required
+        />
+
+        <label>GitHub Link</label>
+        <input
+          type="text"
+          name="githubLink"  
+          value={form.githubLink}
+          onChange={handleChange}
+        />
+
+        <label>Description</label>
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          required
+        />
+
+        <button type="submit" className="btn btn-primary">
+          Save
+        </button>
+      </form>
     </section>
   );
 }

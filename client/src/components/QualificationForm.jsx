@@ -20,8 +20,9 @@ export default function QualificationForm({ initialData = null, onSubmit }) {
   };
 
   return (
-    <form className="contact--form--container" onSubmit={handleSubmit}>
-      <label className="contact--label">
+      <form className="admin-project-form" onSubmit={handleSubmit}>
+        <h2>Add Qualification</h2>
+      <label>
         Title
         <input name="title" value={form.title} onChange={handleChange} required />
       </label>

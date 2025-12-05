@@ -26,10 +26,8 @@ export default function AdminCreateProject() {
   };
 
   return (
-    <section className="admin-project-page">
-      <div className="admin-project-form">
-        <ProjectForm onSubmit={handleCreate} />
-      </div>
-    </section>
+      <section className="admin-form-section">
+            <ProjectForm onSubmit={handleCreate} />
+          </section>
   );
 }

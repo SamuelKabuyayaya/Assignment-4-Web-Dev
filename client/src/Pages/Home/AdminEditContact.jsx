@@ -41,11 +41,11 @@ export default function AdminEditContact() {
   if (!contact) return <p>Loading...</p>;
 
   return (
-  <div className="admin-edit-contact-page">
-    <div className="admin-edit-form">
-      <h2>Edit Contact</h2>
-      <p style={{ color: "green" }}>{msg}</p>
 
+  <div className="admin-project-form">
+      <p style={{ color: "green" }}>{msg}</p>
+<h2>Edit Contact</h2>
+<h2>Edit Contact</h2>
       <form onSubmit={update}>
         <label>First Name
           <input value={contact.firstname}
@@ -77,15 +77,9 @@ export default function AdminEditContact() {
             value={contact.message}
             onChange={(e) => setContact({ ...contact, message: e.target.value })} />
         </label>
-
-        <button className="btn btn-primary">Save</button>
+         <button type="submit" className="btn btn-primary">Save</button>
+        <button type="button" className="btn btn-primary" onClick={() => navigate("/admin/contacts")}style={{ marginLeft: "10px" }}>Back</button>
       </form>
-
-      <button className="btn btn-secondary"
-        onClick={() => navigate("/admin/contacts")}>
-        Back
-      </button>
     </div>
-  </div>
 );
 }

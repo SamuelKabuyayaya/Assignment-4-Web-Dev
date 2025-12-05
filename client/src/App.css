@@ -825,14 +825,9 @@ input[type="checkbox"]{
 /* Delete Button */
 .delete-all-btn,
 .btn-danger {
-    padding: 12px 22px;
-    border-radius: 8px;
-    font-weight: 600;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 20px;
+    color: var(#e74c3c);
+    background-color: var(#e74c3c);
+    border: 1px solid var(--primary);
 }
 
 .delete-all-btn:hover,
@@ -955,8 +950,7 @@ input[type="checkbox"]{
   justify-content: center;
 }
 
-.admin-project-page,
-.admin-form-section {
+.admin-project-page{
   min-height: 100vh;
   padding: 120px 20px;
   display: flex;
@@ -1016,3 +1010,117 @@ input[type="checkbox"]{
   background: var(--primary);
   color: #ffffff;
 }
+
+
+.admin-qualifications-page {
+  min-height: 100vh;
+  padding: 120px 20px;
+  background: #f5f7fb;
+  text-align: center;
+  color: #000; /* all text black */
+}
+
+.admin-qualifications-page h2 {
+  color: #000;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.add-qualification-btn-wrapper {
+  margin-bottom: 30px;
+}
+
+/* Cards container */
+.education--container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Individual qualification card */
+.education--section--card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  color: #000; /* all text black */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease;
+}
+
+.education--section--card:hover {
+  transform: translateY(-4px);
+}
+
+.education--section--card h3 {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.education--section--card p {
+  font-size: 16px;
+  color: #000;
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.admin-form-section {
+  min-height: 100vh;
+  padding: 120px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f7fb;
+  color: #000;
+}
+
+.admin-form-section h2 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Form wrapper box */
+.admin-form-section form,
+.admin-project-form {
+  width: 100%;
+  max-width: 600px;
+  background: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #000;
+}
+
+/* Input fields */
+.admin-form-section input,
+.admin-form-section textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #000;
+  background: #fff;
+}
+
+.admin-form-section textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+

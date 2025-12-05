@@ -19,7 +19,6 @@ export default function AdminAddQualification() {
 
   return (
     <section className="admin-form-section">
-      <h2>Add Qualification</h2>
       <QualificationForm onSubmit={handleCreate} />
     </section>
   );
