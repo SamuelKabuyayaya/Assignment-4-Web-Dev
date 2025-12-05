@@ -13,7 +13,7 @@ export default function Qualifications(){
       setItems(data);
     }
     load();
-  }, []);
+  }, [token]);
 
     return(
         //section container with and id for easy csss styling and navigation

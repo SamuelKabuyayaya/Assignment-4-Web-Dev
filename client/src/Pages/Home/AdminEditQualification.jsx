@@ -1,33 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { updateQualification, listQualifications } from "../../api/qualificationApi";
-import QualificationForm from "../../components/QualificationForm";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { listQualifications, updateQualification } from "../../api/qualificationApi";
 
 export default function AdminEditQualification() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const [initialData, setInitialData] = useState(null);
+
+  const [form, setForm] = useState({
+    title: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    completion: "",
+    description: ""
+  });
 
   useEffect(() => {
-    async function load() {
-      const all = await listQualifications(token);
-      const match = all.find((q) => q._id === id);
-      setInitialData(match);
-    }
-    load();
-  }, [id]);
+    const loadData = async () => {
+      const data = await listQualifications(token);
+      const qual = data.find(q => q._id === id);
+      if (qual) {
+        setForm({
+          title: qual.title,
+          firstname: qual.firstname,
+          lastname: qual.lastname,
+          email: qual.email,
+          completion: qual.completion.slice(0,10),
+          description: qual.description
+        });
+      }
+    };
+    loadData();
+  }, [id, token]);
 
-  const handleUpdate = async (data) => {
-    const res = await updateQualification(token, id, data);
-    alert(res.message || res.error);
+  const handleChange = e => setForm({...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    await updateQualification(token, id, form);
+    navigate("/admin/qualifications");
   };
 
-  if (!initialData) return <p>Loading...</p>;
-
   return (
-    <section className="contact--section">
+    <section className="admin-form-section">
       <h2>Edit Qualification</h2>
-      <QualificationForm initialData={initialData} onSubmit={handleUpdate} />
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="Title" required/>
+        <input type="text" name="firstname" value={form.firstname} onChange={handleChange} placeholder="First Name" required/>
+        <input type="text" name="lastname" value={form.lastname} onChange={handleChange} placeholder="Last Name" required/>
+        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Email" required/>
+        <input type="date" name="completion" value={form.completion} onChange={handleChange} required/>
+        <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" required/>
+        <button type="submit" className="btn btn-primary">Save</button>
+      </form>
     </section>
   );
 }

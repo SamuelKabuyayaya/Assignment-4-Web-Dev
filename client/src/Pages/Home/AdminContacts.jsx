@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 const API = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 export default function AdminContacts() {
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState("");
+  const token = localStorage.getItem("token");
 
-  const token = localStorage.getItem("jwt");
-
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     const res = await fetch(`${API}/api/contacts`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+      headers: { Authorization: "Bearer " + token },
     });
-
     const data = await res.json();
     if (res.ok) setContacts(data);
     else setError(data.error);
-  };
+  }, [token]);
 
   const deleteContact = async (id) => {
     if (!window.confirm("Delete this contact?")) return;
-
     const res = await fetch(`${API}/api/contacts/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+      headers: { Authorization: "Bearer " + token },
     });
-
     const data = await res.json();
     if (res.ok) fetchContacts();
     else alert(data.error);
@@ -37,14 +29,10 @@ export default function AdminContacts() {
 
   const deleteAll = async () => {
     if (!window.confirm("DELETE ALL CONTACTS?")) return;
-
     const res = await fetch(`${API}/api/contacts`, {
       method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+      headers: { Authorization: "Bearer " + token },
     });
-
     const data = await res.json();
     if (res.ok) fetchContacts();
     else alert(data.error);
@@ -52,12 +40,11 @@ export default function AdminContacts() {
 
   useEffect(() => {
     fetchContacts();
-  }, []);
+  }, [fetchContacts]);
 
   return (
     <div className="admin-page">
       <h2>Admin: All Contacts</h2>
-
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <button className="btn btn-danger" onClick={deleteAll} style={{ marginBottom: "20px" }}>
@@ -82,24 +69,15 @@ export default function AdminContacts() {
               <td>{c.email}</td>
               <td>{c.topic}</td>
               <td>{c.message}</td>
-
               <td>
-                <a href={`/admin/contacts/${c._id}`} className="btn btn-secondary">
-                  View / Edit
-                </a>
-
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteContact(c._id)}
-                  style={{ marginLeft: "10px" }}
-                >
+                <a href={`/admin/contacts/${c._id}`} className="btn btn-secondary">View / Edit</a>
+                <button className="btn btn-danger" onClick={() => deleteContact(c._id)} style={{ marginLeft: "10px" }}>
                   Delete
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
-
       </table>
     </div>
   );
