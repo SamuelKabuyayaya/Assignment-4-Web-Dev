@@ -1,4 +1,3 @@
-// src/components/AdminCreateProject.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
@@ -21,16 +20,16 @@ export default function AdminCreateProject() {
     });
 
     const data = await res.json();
-
     if (!res.ok) return alert(data.error || "Failed to create project");
 
     navigate("/admin/projects");
   };
 
   return (
-    <section className="admin-form-section">
-      <h2>Add Project</h2>
-      <ProjectForm onSubmit={handleCreate} />
+    <section className="admin-project-page">
+      <div className="admin-project-form">
+        <ProjectForm onSubmit={handleCreate} />
+      </div>
     </section>
   );
 }

@@ -1,4 +1,3 @@
-// src/components/ProjectForm.jsx
 import React, { useState, useEffect } from "react";
 
 export default function ProjectForm({ onSubmit, initialData }) {
@@ -27,7 +26,6 @@ export default function ProjectForm({ onSubmit, initialData }) {
 
   return (
     <form onSubmit={handleSubmit} className="admin-project-form">
-
       <label>
         Title
         <input

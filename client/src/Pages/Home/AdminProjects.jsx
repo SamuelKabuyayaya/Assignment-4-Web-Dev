@@ -16,13 +16,8 @@ export default function AdminProjects() {
       });
 
       const data = await res.json();
+      if (!res.ok) return setProjects([]);
 
-      if (!res.ok) {
-        console.error(data);
-        return setProjects([]);
-      }
-
-      // Backend returns an array, NOT wrapped in {projects:...}
       setProjects(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Fetch error:", err);

@@ -15,11 +15,12 @@ export default function AdminEditProject() {
     async function load() {
       try {
         const token = localStorage.getItem("token");
+
         const res = await fetch(`${API}/api/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const data = await res.json();
 
+        const data = await res.json();
         if (!res.ok) throw new Error("Project not found");
 
         setInitialData({
@@ -49,7 +50,6 @@ export default function AdminEditProject() {
       });
 
       const data = await res.json();
-
       if (!res.ok) return alert(data.error || "Failed to update project");
 
       navigate("/admin/projects");
@@ -58,12 +58,14 @@ export default function AdminEditProject() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (!initialData) return <p>Project not found.</p>;
+  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
+  if (!initialData) return <p style={{ textAlign: "center" }}>Project not found.</p>;
 
   return (
     <section className="admin-form-section">
-      <ProjectForm onSubmit={handleUpdate} initialData={initialData} />
+      <div className="admin-project-form">
+        <ProjectForm onSubmit={handleUpdate} initialData={initialData} />
+      </div>
     </section>
   );
 }
