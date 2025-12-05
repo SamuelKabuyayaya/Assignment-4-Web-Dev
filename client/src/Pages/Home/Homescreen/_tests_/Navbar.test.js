@@ -1,9 +1,10 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Navbar from "../../Navbar";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import "@testing-library/jest-dom";
 
-
+// Correct single mock
 jest.mock("react-scroll", () => ({
   Link: ({ children, to, className }) => (
     <a data-testid={`scroll-link-${to}`} className={className}>

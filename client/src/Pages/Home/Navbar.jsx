@@ -1,4 +1,5 @@
 //displays the navigation bar with links to different sections of the site
+import React from "react";
 import {Link} from "react-scroll";
 import { Link as RouterLink, useLocation } from "react-router-dom";  
 import { useEffect, useState } from "react";
