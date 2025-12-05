@@ -12,7 +12,7 @@ const seedAdmin = async () => {
 
         await User.deleteOne({email: admin.email});
         await User.create(admin);
-        console.log("Congrats, you logged in as admin.");
+        console.log("Congrats, you created admin user.");
         process.exit(0);
     }catch (err){
         console.error("Something went wrong. Check your data again.");

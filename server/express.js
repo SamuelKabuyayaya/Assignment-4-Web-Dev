@@ -22,7 +22,9 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 app.use(cors({
-  origin: "https://portfolio-79zf.onrender.com",
+  origin: ["https://portfolio-79zf.onrender.com",
+    "http://localhost:3000"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
